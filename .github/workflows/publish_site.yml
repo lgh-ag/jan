@@ -25,7 +25,7 @@ jobs:
         run: git config --global user.name "Actions Bot"
 
       - name: Refresh
-        run: git submodule foreach git pull origin master && git commit -am "Refresh triggered by ${{ github.repository }}" && git push origin main
+        run: git submodule foreach git pull origin master
 
       - name: Commit
         run: git commit -am "Refresh triggered by ${{ github.repository }}"
