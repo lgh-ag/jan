@@ -24,17 +24,11 @@ jobs:
       - name: Pull
         run: git pull origin main
 
-      - name: Init submodules
-        run: git submodule init
-
-      - name: Update submodules
-        run: git submodule update
-
-      - name: Refresh submodules
-        run: git submodule foreach git pull origin master
+      - name: Init, Update & Refresh submodules
+        run: git submodule update --init --recursive
 
       - name: Commit
         run: git commit -am "Refresh triggered by ${{ github.repository }}"
 
       - name: Push
-        run: git push -u origin main
+        run: git push origin HEAD:main
