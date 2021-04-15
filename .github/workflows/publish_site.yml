@@ -8,15 +8,12 @@ on:
 jobs:
   publish-site:
     runs-on: ubuntu-latest
-    steps:
-      - name: Clone
-        run: git clone https://github.com/${{ secrets.ACTIONS_ORG }}/${{ secrets.ACTIONS_REPO }} && cd ${{ secrets.ACTIONS_REPO }}
-
-      - name: Refresh
-        run: git submodule foreach git pull origin master
-
+    steps: 
       - name: Login
         run: git remote add origin https://${{ secrets.ACTIONS_USERNAME }}:${{ secrets.ACTIONS_SECRET }}@github.com/${{ secrets.ACTIONS_ORG }}/${{ secrets.ACTIONS_SECRET_REPO }}.git
+
+      - name: Clone & Refresh
+        run: git clone https://github.com/${{ secrets.ACTIONS_ORG }}/${{ secrets.ACTIONS_REPO }} && cd ${{ secrets.ACTIONS_REPO }} && git submodule foreach git pull origin master
 
       - name: Commit
         run: git commit -am "Refresh triggered by ${{ github.repository }}"
