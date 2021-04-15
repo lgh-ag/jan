@@ -9,14 +9,10 @@ jobs:
   publish-site:
     runs-on: ubuntu-latest
     steps:
-      - name: Clone & Refresh
-        run: git clone https://github.com/${{ secrets.ACTIONS_ORG }}/${{ secrets.ACTIONS_REPO }} && cd ${{ secrets.ACTIONS_REPO }} && git submodule foreach git pull origin master
-
-      - name: Login
-        run: git remote add origin https://${{ secrets.ACTIONS_USERNAME }}:${{ secrets.ACTIONS_SECRET }}@github.com/${{ secrets.ACTIONS_ORG }}/${{ secrets.ACTIONS_REPO }}.git
-
-      - name: Commit
-        run: git commit -am "Refresh triggered by ${{ github.repository }}"
-
-      - name: Push
-        run: git push origin master
+      - name: Refresh
+        run: git clone https://github.com/${{ secrets.ACTIONS_ORG }}/${{ secrets.ACTIONS_REPO }} && \
+          cd ${{ secrets.ACTIONS_REPO }} && \
+          git submodule foreach git pull origin master \
+          git remote add origin https://${{ secrets.ACTIONS_USERNAME }}:${{ secrets.ACTIONS_SECRET }}@github.com/${{ secrets.ACTIONS_ORG }}/${{ secrets.ACTIONS_REPO }}.git \
+          git commit -am "Refresh triggered by ${{ github.repository }}" \
+          git push origin master
