@@ -37,4 +37,4 @@ jobs:
         run: git commit -am "Refresh triggered by ${{ github.repository }}"
 
       - name: Push
-        run: git push origin main
+        run: git push -u origin main
